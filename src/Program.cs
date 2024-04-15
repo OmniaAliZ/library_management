@@ -1,6 +1,205 @@
-﻿internal class Program
+﻿public enum BookTypes
+{
+    Comic,
+    Novel,
+    TextBook,
+    ResearchPaper
+}
+
+internal class Program
 {
     private static void Main()
     {
+
+        var library = new Library();
+
+        var user1 = new User("Alice", new DateTime(2023, 1, 1));
+        var user2 = new User("Bob", new DateTime(2023, 2, 1));
+        var user3 = new User("Charlie", new DateTime(2023, 3, 1));
+        var user4 = new User("David", new DateTime(2023, 4, 1));
+        var user5 = new User("Eve", new DateTime(2024, 5, 1));
+        var user6 = new User("Fiona", new DateTime(2024, 6, 1));
+        var user7 = new User("George", new DateTime(2024, 7, 1));
+        var user8 = new User("Hannah", new DateTime(2024, 8, 1));
+        var user9 = new User("Ian");
+        var user10 = new User("Julia");
+        library.AddUser(user1);
+        library.AddUser(user2);
+        library.AddUser(user3);
+        library.AddUser(user4);
+        library.AddUser(user5);
+        library.AddUser(user6);
+        library.AddUser(user7);
+        library.AddUser(user8);
+        library.AddUser(user9);
+        library.AddUser(user10);
+
+        var book1 = new Book("The Great Gatsby", BookTypes.Comic, new DateTime(2023, 1, 1));
+        var book2 = new Book("1984", new DateTime(2023, 2, 1));
+        var book3 = new Book("To Kill a Mockingbird", new DateTime(2023, 3, 1));
+        var book4 = new Book("The Catcher in the Rye", new DateTime(2023, 4, 1));
+        var book5 = new Book("Pride and Prejudice", new DateTime(2023, 5, 1));
+        var book6 = new Book("Wuthering Heights", new DateTime(2023, 6, 1));
+        var book7 = new Book("Jane Eyre", new DateTime(2023, 7, 1));
+        var book8 = new Book("Brave New World", new DateTime(2023, 8, 1));
+        var book9 = new Book("Moby-Dick", new DateTime(2023, 9, 1));
+        var book10 = new Book("War and Peace", new DateTime(2023, 10, 1));
+        var book11 = new Book("Hamlet", new DateTime(2023, 11, 1));
+        var book12 = new Book("Great Expectations", new DateTime(2023, 12, 1));
+        var book13 = new Book("Ulysses", new DateTime(2024, 1, 1));
+        var book14 = new Book("The Odyssey", new DateTime(2024, 2, 1));
+        var book15 = new Book("The Divine Comedy", new DateTime(2024, 3, 1));
+        var book16 = new Book("Crime and Punishment", new DateTime(2024, 4, 1));
+        var book17 = new Book("The Brothers Karamazov", new DateTime(2024, 5, 1));
+        var book18 = new Book("Don Quixote", new DateTime(2024, 6, 1));
+        var book19 = new Book("The Iliad");
+        var book20 = new Book("Anna Karenina");
+
+        library.AddBook(book1);
+        library.AddBook(book2);
+        library.AddBook(book3);
+        library.AddBook(book4);
+        library.AddBook(book5);
+        library.AddBook(book6);
+        library.AddBook(book7);
+        library.AddBook(book8);
+        library.AddBook(book9);
+        library.AddBook(book10);
+        library.AddBook(book11);
+        library.AddBook(book12);
+        library.AddBook(book13);
+        library.AddBook(book14);
+        library.AddBook(book15);
+        library.AddBook(book16);
+        library.AddBook(book17);
+        library.AddBook(book18);
+        library.AddBook(book19);
+        library.AddBook(book20);
+
+        library.GetUsers();
+        library.GetBooks();
+
+        library.DeleteBook(book3.Id);
+        //library.GetBooks();
     }
+}
+
+
+public class Library
+{
+    List<Book> books;
+    List<User> users;
+    public Library()
+    {
+        books = new List<Book>();
+        users = new List<User>();
+    }
+    public void AddBook(Book book)
+    {
+        books.Add(book);
+    }
+    public void AddUser(User user)
+    {
+        users.Add(user);
+    }
+    string FindBook(string title)
+    {
+        Book? foundBook = books.Find(book => book.BookTitle == title);
+        return $"{foundBook}";
+    }
+    string FindUser(string name)
+    {
+        User? foundUser = users.Find(user => user.UserName == name);
+        return $"{foundUser}";
+    }
+    public void DeleteBook(Guid id)
+    {
+        Book? foundBook = books.Find(book => book.Id == id);
+        if (foundBook is not null)
+        {
+            books.Remove(foundBook);
+            Console.WriteLine($"Hey, book with Id {id} deleted ");
+        }
+        else
+        {
+            Console.WriteLine("Book Not Found");
+        }
+    }
+    public void DeleteUser(Guid id)
+    {
+        User? foundUser = users.Find(user => user.Id == id);
+        if (foundUser is not null)
+        {
+            users.Remove(foundUser);
+            Console.WriteLine($"Hey, user with Id {id} deleted ");
+        }
+        else
+        {
+            Console.WriteLine("User Not Found");
+        }
+    }
+    public void GetBooks()
+    {
+        var sortedBooks = from book in books
+                          orderby book.Date
+                          select book;
+        foreach (var book in sortedBooks)
+        {
+            Console.WriteLine(book.ToString() + '\n');
+        }
+    }
+    public void GetUsers()
+    {
+        var sortedUsers = from user in users
+                          orderby user.Date
+                          select user;
+        foreach (var user in users)
+        {
+            Console.WriteLine(user.ToString() + '\n');
+        }
+    }
+
+}
+
+public class Book : Base
+{
+    public string BookTitle { set; get; }
+    public BookTypes Type { set; get; }
+    public Book(string title, BookTypes type, DateTime? dateTime = null)
+    {
+        Type = type;
+        BookTitle = title;
+        Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
+    }
+    // overload constructor 
+    public Book(string title, DateTime? dateTime = null)
+    {
+        BookTitle = title;
+        Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
+    }
+
+    public override string? ToString()
+    {
+        return $"Book ({Id})\nName: {BookTitle}\nCreated date: {Date}\n";
+    }
+}
+
+public class User : Base
+{
+    public string UserName { set; get; }
+    public User(string name, DateTime? dateTime = null)
+    {
+        UserName = name;
+        Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
+    }
+    public override string? ToString()
+    {
+        return $"User ({Id})\nName: {UserName}\nCreated date: {Date}\n";
+    }
+}
+
+public class Base
+{
+    public Guid Id = Guid.NewGuid();
+    public DateTime Date { set; get; }
 }
