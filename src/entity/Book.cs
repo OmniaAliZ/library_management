@@ -21,7 +21,6 @@ public class Book : Base
         BookTitle = title;
         Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
     }
-
     public override string? ToString()
     {
         return $"Book ({Id})\nName: {BookTitle}\nCreated date: {Date}\n";

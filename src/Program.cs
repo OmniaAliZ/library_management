@@ -5,7 +5,10 @@ internal class Program
     private static void Main()
     {
 
-        var library = new Library();
+
+        var emailService = new EmailNotificationService();
+        var smsService = new SMSNotificationService();
+        var library = new Library(emailService);
 
         var user1 = new User("Alice", new DateTime(2023, 1, 1));
         var user2 = new User("Bob", new DateTime(2023, 2, 1));
@@ -49,26 +52,26 @@ internal class Program
         var book18 = new Book("Don Quixote", new DateTime(2024, 6, 1));
         var book19 = new Book("The Iliad");
         var book20 = new Book("Anna Karenina");
-        library.AddBook(book1);
-        library.AddBook(book2);
-        library.AddBook(book3);
-        library.AddBook(book4);
-        library.AddBook(book5);
-        library.AddBook(book6);
-        library.AddBook(book7);
-        library.AddBook(book8);
-        library.AddBook(book9);
-        library.AddBook(book10);
-        library.AddBook(book11);
-        library.AddBook(book12);
-        library.AddBook(book13);
-        library.AddBook(book14);
-        library.AddBook(book15);
-        library.AddBook(book16);
-        library.AddBook(book17);
-        library.AddBook(book18);
-        library.AddBook(book19);
-        library.AddBook(book20);
+        // library.AddBook(book1);
+        // library.AddBook(book2);
+        // library.AddBook(book3);
+        // library.AddBook(book4);
+        // library.AddBook(book5);
+        // library.AddBook(book6);
+        // library.AddBook(book7);
+        // library.AddBook(book8);
+        // library.AddBook(book9);
+        // library.AddBook(book10);
+        // library.AddBook(book11);
+        // library.AddBook(book12);
+        // library.AddBook(book13);
+        // library.AddBook(book14);
+        // library.AddBook(book15);
+        // library.AddBook(book16);
+        // library.AddBook(book17);
+        // library.AddBook(book18);
+        // library.AddBook(book19);
+        // library.AddBook(book20);
 
         // library.GetUsers();
         // library.GetBooks();
