@@ -14,13 +14,13 @@ public class Library
         if (Books.Contains(newBook))
         {
             Console.WriteLine($"{newBook.BookTitle} Already exists.");
-            notificationService.SendNotificationOnFailure(newBook);
+            notificationService.SendNotificationOnFailure($"We encountered an issue adding {newBook.BookTitle}");
         }
         else
         {
             Books.Add(newBook);
             Console.WriteLine($"{newBook.BookTitle} added.");
-            notificationService.SendNotificationOnSucess();
+            notificationService.SendNotificationOnSuccess($"Hello, a new book: {newBook.BookTitle} has been successfully added to the Library");
         }
     }
     public void AddUser(User newUser)
@@ -28,14 +28,14 @@ public class Library
         if (Users.Contains(newUser))
         {
             Console.WriteLine($"{newUser.UserName} Already exists.");
-            notificationService.SendNotificationOnFailure(newUser);
-            //    notificationService.SendNotificationOnFailure($"{newUser} is not added");
+            notificationService.SendNotificationOnFailure($"We encountered an issue adding {newUser.UserName}");
         }
         else
         {
             Users.Add(newUser);
             Console.WriteLine($"{newUser.UserName} added.");
-            notificationService.SendNotificationOnSucess(newUser);
+            notificationService.SendNotificationOnSuccess($"Hello, a new user: {newUser.UserName} has been successfully added to the Library");
+
         }
     }
     public string FindBook(string title)
@@ -55,12 +55,12 @@ public class Library
         {
             Books.Remove(foundBook);
             Console.WriteLine($"Hey, book with Id {id} deleted ");
-            notificationService.SendNotificationOnSucess(foundBook);
+            notificationService.SendNotificationOnSuccess($"Hello, the book: {foundBook.BookTitle} has been successfully deleted from the Library");
         }
         else
         {
             Console.WriteLine("Book Not Found");
-            notificationService.SendNotificationOnFailure();
+            notificationService.SendNotificationOnFailure($"We encountered an issue deleting the book");
         }
     }
     public void DeleteUser(Guid id)
@@ -70,19 +70,24 @@ public class Library
         {
             Users.Remove(foundUser);
             Console.WriteLine($"Hey, user with Id {id} deleted ");
-            notificationService.SendNotificationOnSucess(foundUser);
+            notificationService.SendNotificationOnSuccess($"Hello, the user: {foundUser.UserName} has been successfully deleted from the Library");
         }
         else
         {
             Console.WriteLine("User Not Found");
-            notificationService.SendNotificationOnFailure();
+            notificationService.SendNotificationOnFailure($"We encountered an issue deleting the user");
         }
     }
-    public void GetBooks()
+    public void GetBooks(int page)
     {
         var sortedBooks = from book in Books
                           orderby book.Date
                           select book;
+
+        var perPage = 5;
+        var paginated = sortedBooks.Skip(page).Take(perPage);
+
+
         foreach (var book in sortedBooks)
         {
             Console.WriteLine(book.ToString() + '\n');

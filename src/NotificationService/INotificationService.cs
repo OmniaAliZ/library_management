@@ -1,8 +1,8 @@
 public interface INotificationService
 {
-    public void SendNotificationOnSucess(Base? entity = null);
-    public void SendNotificationOnFailure(Base? entity = null);
+    // public void SendNotificationOnSucess(Base? entity = null);
+    // public void SendNotificationOnFailure(Base? entity = null);
 
-    // public void SendNotificationOnSucess(string item);
-    // public void SendNotificationOnFailure(string item);
+    public void SendNotificationOnSuccess(string successMsg);
+    public void SendNotificationOnFailure(string failureMsg);
 }
