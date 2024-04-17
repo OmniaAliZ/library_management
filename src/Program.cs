@@ -1,10 +1,4 @@
-﻿public enum BookTypes
-{
-    Comic,
-    Novel,
-    TextBook,
-    ResearchPaper
-}
+﻿
 
 internal class Program
 {
@@ -33,6 +27,7 @@ internal class Program
         library.AddUser(user8);
         library.AddUser(user9);
         library.AddUser(user10);
+        library.AddUser(user10);
 
         var book1 = new Book("The Great Gatsby", BookTypes.Comic, new DateTime(2023, 1, 1));
         var book2 = new Book("1984", new DateTime(2023, 2, 1));
@@ -54,7 +49,6 @@ internal class Program
         var book18 = new Book("Don Quixote", new DateTime(2024, 6, 1));
         var book19 = new Book("The Iliad");
         var book20 = new Book("Anna Karenina");
-
         library.AddBook(book1);
         library.AddBook(book2);
         library.AddBook(book3);
@@ -76,130 +70,9 @@ internal class Program
         library.AddBook(book19);
         library.AddBook(book20);
 
-        library.GetUsers();
-        library.GetBooks();
-
-        library.DeleteBook(book3.Id);
+        // library.GetUsers();
+        // library.GetBooks();
+        // library.DeleteBook(book3.Id);
         //library.GetBooks();
     }
-}
-
-
-public class Library
-{
-    List<Book> books;
-    List<User> users;
-    public Library()
-    {
-        books = new List<Book>();
-        users = new List<User>();
-    }
-    public void AddBook(Book book)
-    {
-        books.Add(book);
-    }
-    public void AddUser(User user)
-    {
-        users.Add(user);
-    }
-    string FindBook(string title)
-    {
-        Book? foundBook = books.Find(book => book.BookTitle == title);
-        return $"{foundBook}";
-    }
-    string FindUser(string name)
-    {
-        User? foundUser = users.Find(user => user.UserName == name);
-        return $"{foundUser}";
-    }
-    public void DeleteBook(Guid id)
-    {
-        Book? foundBook = books.Find(book => book.Id == id);
-        if (foundBook is not null)
-        {
-            books.Remove(foundBook);
-            Console.WriteLine($"Hey, book with Id {id} deleted ");
-        }
-        else
-        {
-            Console.WriteLine("Book Not Found");
-        }
-    }
-    public void DeleteUser(Guid id)
-    {
-        User? foundUser = users.Find(user => user.Id == id);
-        if (foundUser is not null)
-        {
-            users.Remove(foundUser);
-            Console.WriteLine($"Hey, user with Id {id} deleted ");
-        }
-        else
-        {
-            Console.WriteLine("User Not Found");
-        }
-    }
-    public void GetBooks()
-    {
-        var sortedBooks = from book in books
-                          orderby book.Date
-                          select book;
-        foreach (var book in sortedBooks)
-        {
-            Console.WriteLine(book.ToString() + '\n');
-        }
-    }
-    public void GetUsers()
-    {
-        var sortedUsers = from user in users
-                          orderby user.Date
-                          select user;
-        foreach (var user in users)
-        {
-            Console.WriteLine(user.ToString() + '\n');
-        }
-    }
-
-}
-
-public class Book : Base
-{
-    public string BookTitle { set; get; }
-    public BookTypes Type { set; get; }
-    public Book(string title, BookTypes type, DateTime? dateTime = null)
-    {
-        Type = type;
-        BookTitle = title;
-        Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
-    }
-    // overload constructor 
-    public Book(string title, DateTime? dateTime = null)
-    {
-        BookTitle = title;
-        Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
-    }
-
-    public override string? ToString()
-    {
-        return $"Book ({Id})\nName: {BookTitle}\nCreated date: {Date}\n";
-    }
-}
-
-public class User : Base
-{
-    public string UserName { set; get; }
-    public User(string name, DateTime? dateTime = null)
-    {
-        UserName = name;
-        Date = dateTime is null ? DateTime.Now : (DateTime)dateTime;
-    }
-    public override string? ToString()
-    {
-        return $"User ({Id})\nName: {UserName}\nCreated date: {Date}\n";
-    }
-}
-
-public class Base
-{
-    public Guid Id = Guid.NewGuid();
-    public DateTime Date { set; get; }
 }
