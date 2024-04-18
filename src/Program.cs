@@ -4,11 +4,10 @@ internal class Program
 {
     private static void Main()
     {
-
-
         var emailService = new EmailNotificationService();
         var smsService = new SMSNotificationService();
-        var library = new Library(emailService);
+        var libraryWithEmail = new Library(emailService);
+        var libraryWithSMS = new Library(smsService);
 
         var user1 = new User("Alice", new DateTime(2023, 1, 1));
         var user2 = new User("Bob", new DateTime(2023, 2, 1));
@@ -20,17 +19,30 @@ internal class Program
         var user8 = new User("Hannah", new DateTime(2024, 8, 1));
         var user9 = new User("Ian");
         var user10 = new User("Julia");
-        library.AddUser(user1);
-        library.AddUser(user2);
-        library.AddUser(user3);
-        library.AddUser(user4);
-        library.AddUser(user5);
-        library.AddUser(user6);
-        library.AddUser(user7);
-        library.AddUser(user8);
-        library.AddUser(user9);
-        library.AddUser(user10);
-        library.AddUser(user10);
+
+        libraryWithEmail.AddUser(user1);
+        libraryWithEmail.AddUser(user2);
+        libraryWithEmail.AddUser(user3);
+        libraryWithEmail.AddUser(user4);
+        libraryWithEmail.AddUser(user5);
+        libraryWithEmail.AddUser(user6);
+        libraryWithEmail.AddUser(user7);
+        libraryWithEmail.AddUser(user8);
+        libraryWithEmail.AddUser(user9);
+        libraryWithEmail.AddUser(user10);
+        libraryWithEmail.AddUser(user10);
+
+        libraryWithSMS.AddUser(user1);
+        libraryWithSMS.AddUser(user2);
+        libraryWithSMS.AddUser(user3);
+        libraryWithSMS.AddUser(user4);
+        libraryWithSMS.AddUser(user5);
+        libraryWithSMS.AddUser(user6);
+        libraryWithSMS.AddUser(user7);
+        libraryWithSMS.AddUser(user8);
+        libraryWithSMS.AddUser(user9);
+        libraryWithSMS.AddUser(user10);
+        libraryWithSMS.AddUser(user10);
 
         var book1 = new Book("The Great Gatsby", BookTypes.Comic, new DateTime(2023, 1, 1));
         var book2 = new Book("1984", new DateTime(2023, 2, 1));
@@ -52,30 +64,57 @@ internal class Program
         var book18 = new Book("Don Quixote", new DateTime(2024, 6, 1));
         var book19 = new Book("The Iliad");
         var book20 = new Book("Anna Karenina");
-        // library.AddBook(book1);
-        // library.AddBook(book2);
-        // library.AddBook(book3);
-        // library.AddBook(book4);
-        // library.AddBook(book5);
-        // library.AddBook(book6);
-        // library.AddBook(book7);
-        // library.AddBook(book8);
-        // library.AddBook(book9);
-        // library.AddBook(book10);
-        // library.AddBook(book11);
-        // library.AddBook(book12);
-        // library.AddBook(book13);
-        // library.AddBook(book14);
-        // library.AddBook(book15);
-        // library.AddBook(book16);
-        // library.AddBook(book17);
-        // library.AddBook(book18);
-        // library.AddBook(book19);
-        // library.AddBook(book20);
 
-        // library.GetUsers();
-        // library.GetBooks();
-        // library.DeleteBook(book3.Id);
-        //library.GetBooks();
+        libraryWithEmail.AddBook(book1);
+        libraryWithEmail.AddBook(book2);
+        libraryWithEmail.AddBook(book3);
+        libraryWithEmail.AddBook(book4);
+        libraryWithEmail.AddBook(book5);
+        libraryWithEmail.AddBook(book6);
+        libraryWithEmail.AddBook(book7);
+        libraryWithEmail.AddBook(book8);
+        libraryWithEmail.AddBook(book9);
+        libraryWithEmail.AddBook(book10);
+        libraryWithEmail.AddBook(book11);
+        libraryWithEmail.AddBook(book12);
+        libraryWithEmail.AddBook(book13);
+        libraryWithEmail.AddBook(book14);
+        libraryWithEmail.AddBook(book15);
+        libraryWithEmail.AddBook(book16);
+        libraryWithEmail.AddBook(book17);
+        libraryWithEmail.AddBook(book18);
+        libraryWithEmail.AddBook(book19);
+        libraryWithEmail.AddBook(book20);
+
+        libraryWithSMS.AddBook(book1);
+        libraryWithSMS.AddBook(book2);
+        libraryWithSMS.AddBook(book3);
+        libraryWithSMS.AddBook(book4);
+        libraryWithSMS.AddBook(book5);
+        libraryWithSMS.AddBook(book6);
+        libraryWithSMS.AddBook(book7);
+        libraryWithSMS.AddBook(book8);
+        libraryWithSMS.AddBook(book9);
+        libraryWithSMS.AddBook(book10);
+        libraryWithSMS.AddBook(book11);
+        libraryWithSMS.AddBook(book12);
+        libraryWithSMS.AddBook(book13);
+        libraryWithSMS.AddBook(book14);
+        libraryWithSMS.AddBook(book15);
+        libraryWithSMS.AddBook(book16);
+        libraryWithSMS.AddBook(book17);
+        libraryWithSMS.AddBook(book18);
+        libraryWithSMS.AddBook(book19);
+        libraryWithSMS.AddBook(book20);
+
+        libraryWithEmail.GetUsers();
+        libraryWithSMS.GetUsers();
+        libraryWithEmail.GetBooks();
+        libraryWithSMS.GetBooks();
+        libraryWithEmail.DeleteBook(book3.Id);
+        libraryWithSMS.DeleteBook(book3.Id);
+        Console.WriteLine(libraryWithEmail.FindBook(book13.BookTitle));
+        Console.WriteLine(libraryWithSMS.FindBook(book16.BookTitle));
+
     }
 }
