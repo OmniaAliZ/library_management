@@ -91,7 +91,7 @@ public class Library
                           orderby user.Date
                           select user;
 
-        foreach (var user in Users)
+        foreach (var user in sortedUsers)
         {
             Console.WriteLine(user.ToString() + '\n');
         }
